@@ -5,6 +5,7 @@ import pandas as pd
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
+model2 = pickle.load(open('model2.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -30,7 +31,8 @@ def predict_api():
     ret ={
         'is_deafult': isDefault,
         'safe_factor': prob,
-        'safe_amount': calculate_amount(data) if isDefault==1 else data['FINANCE_AMOUNT']
+        'safe_amount': calculate_amount(data) if isDefault==1 else data['FINANCE_AMOUNT'],
+        'arreas_rentals': get_arreas_rentals(data) if isDefault==1 else -1
     }
  
     return jsonify(ret)
@@ -51,6 +53,11 @@ def calculate_amount(data):
         #print("Amount: ", curr_amount, "prob: ",p[0][1])
         i+=1
     return finance_amout[-1]
+
+
+def get_arreas_rentals(data):
+    return float(model2.predict(pd.DataFrame([np.array(list(data.values()))])))
+
  
 
 if __name__ == "__main__":
