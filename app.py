@@ -56,7 +56,8 @@ def calculate_amount(data):
 
 
 def get_arreas_rentals(data):
-    return float(model2.predict(pd.DataFrame([np.array(list(data.values()))])))
+    arreas_rentals = int(model2.predict(pd.DataFrame([np.array(list(data.values()))]))*data['NO_OF_RENTAL'])
+    return arreas_rentals
 
  
 
