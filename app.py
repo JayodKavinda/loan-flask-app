@@ -42,15 +42,15 @@ def calculate_amount(data):
     probs =[1]
     i=0
 
-    while probs[-1]>0.5:
+    while probs[-1]>=0.5:
         curr_amount = finance_amout[-1]-5000
-        if(curr_amount<10000):
-            return -1
+        if(curr_amount< finance_amout[0]/2):
+            return curr_amount
         data['FINANCE_AMOUNT'] = curr_amount
         finance_amout.append(curr_amount)
         p = model.predict_proba(pd.DataFrame([np.array(list(data.values()))]))
         probs.append(p[0][1])
-        #print("Amount: ", curr_amount, "prob: ",p[0][1])
+        print("Amount: ", curr_amount, "prob: ",p[0][1])
         i+=1
     return finance_amout[-1]
 
