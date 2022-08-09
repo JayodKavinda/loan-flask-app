@@ -2,6 +2,7 @@ import numpy as np
 from flask import Flask, request, jsonify, render_template
 import pickle
 import pandas as pd
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ def home():
 
 
 @app.route('/predict_api',methods=['POST'])
+@cross_origin()
 def predict_api():
     '''
     For direct API calls trought request
