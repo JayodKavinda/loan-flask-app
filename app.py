@@ -6,6 +6,9 @@ from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 model = pickle.load(open('model.pkl', 'rb'))
 model2 = pickle.load(open('model2.pkl', 'rb'))
 
